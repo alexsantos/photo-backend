@@ -70,7 +70,7 @@ class UploadController(
     }
 
     @GetMapping("/image/{id}")
-    fun get(id: String) : ResponseEntity<Resource> {
+    fun get(@PathVariable id: String) : ResponseEntity<Resource> {
         val resource = ctx.getResource("$bucket/$id")
         return if (resource.exists()) {
             ResponseEntity.ok(resource)
