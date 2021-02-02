@@ -9,7 +9,9 @@ import org.springframework.core.io.Resource
 import org.springframework.core.io.WritableResource
 import org.springframework.data.annotation.Id
 import org.springframework.data.rest.core.annotation.RepositoryRestResource
+import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.multipart.MultipartFile
@@ -73,7 +75,9 @@ class UploadController(
     fun get(@PathVariable id: String) : ResponseEntity<Resource> {
         val resource = ctx.getResource("$bucket/$id")
         return if (resource.exists()) {
-            ResponseEntity.ok(resource)
+            ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(resource)
         } else {
             ResponseEntity(HttpStatus.NOT_FOUND)
         }
